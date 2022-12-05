@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import banner from '../../assets/images/signup-banner.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
-const handleLogin = data =>{
 
-}
 
 const Login = () => {
     const {register , formState: { errors }, handleSubmit, reset} =  useForm()
+    const {userSign} = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const handleLogin = data =>{
+
+
+        userSign(data.email, data.password)
+        .then(result => {
+            const user = result.user
+            console.log(user)
+            navigate('/')
+        })
+        .catch(e=> console.log(e))
+
+    }
     return (
         <div className=' my-5 lg:flex justify-center items-center' >
             <div className='lg:w-3/5'>
