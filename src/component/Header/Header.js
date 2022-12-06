@@ -23,9 +23,10 @@ const Header = () => {
                     <ul className="menu menu-horizontal p-0 font-inter text-base font-semibold">
                         {
                             user?.uid ?
-                            <li><Link onClick={handleLogOut} >Sign Out</Link></li>:
+                            <li><Link onClick={handleLogOut} > Sign Out</Link></li>:
                             <li><Link to ='/login' >Login</Link></li>
                         }
+                        <li> <Link to='/attendance-info' >Attendace Info</Link> </li>
                         
                     </ul>
                 </div>

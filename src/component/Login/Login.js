@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import banner from '../../assets/images/signup-banner.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import toast from 'react-hot-toast';
 
 
 
@@ -10,6 +11,8 @@ const Login = () => {
     const {register , formState: { errors }, handleSubmit, reset} =  useForm()
     const {userSign} = useContext(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from.pathname || '/'
 
     const handleLogin = data =>{
 
@@ -17,14 +20,14 @@ const Login = () => {
         userSign(data.email, data.password)
         .then(result => {
             const user = result.user
-            console.log(user)
-            navigate('/')
+            toast.success('login successful')
+            navigate(from, {replace:true})
         })
         .catch(e=> console.log(e))
 
     }
     return (
-        <div className=' my-5 lg:flex justify-center items-center' >
+        <div className=' my-5 lg:flex justify-center items-center font-inter ' >
             <div className='lg:w-3/5'>
                  <img src= {banner} alt="" />
             </div>
@@ -35,12 +38,12 @@ const Login = () => {
                     <section>
                     
                     <div className="form-control w-full mb-16 border-b-2 border-[#A4A4A4] relative">
-                        <input   {...register("email" , { required: true })} name= "email" type="text" placeholder="Write Email Address" className="border-0 outline-none w-full text-base text-[#B4B4B4]" />
+                        <input   {...register("email" , { required: true })} name= "email" type="text" placeholder="Write Email Address" className="border-0 outline-none w-full text-base " />
 
                     </div>
                     <div className="form-control w-full mb-16 border-b-2  border-[#A4A4A4]  relative">
                         
-                        <input  {...register("password" , { required: true })}  name ="password" type="text" placeholder="Write Password" className="border-0 outline-none w-full text-base text-[#B4B4B4]" />
+                        <input  {...register("password" , { required: true })}  name ="password" type="password" placeholder="Write Password" className="border-0 outline-none w-full text-base " />
                     </div>
                 </section>
             
@@ -52,7 +55,7 @@ const Login = () => {
                     
             </form>
                  <div className='flex justify-end mb-5'>
-                    <p><small>Don't have an account</small> <Link to ='/signup' >SIGNUP HERE</Link> </p>
+                    <p>Don't have an account? <Link to ='/signup' className='text-[#1678CB] font-semibold' >SIGNUP HERE</Link> </p>
                  </div>
             </div>
         </div>

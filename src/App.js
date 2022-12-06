@@ -3,6 +3,7 @@ import './App.css';
 import Signup from './component/Signup';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './component/Routes/Routes';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
      <RouterProvider router={router} >
 
      </RouterProvider>
-
+    <Toaster/>
     </div>
   );
 }
